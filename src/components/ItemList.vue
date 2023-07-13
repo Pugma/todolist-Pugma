@@ -14,6 +14,9 @@ const newItemName = ref('')
 const newItemPrice = ref(0)
 
 const addItem = () => {
+  if (newItemName.value===''){
+    return
+  }
   items.value.push({ name: newItemName.value, price: newItemPrice.value })
   newItemName.value = ""
   newItemPrice.value = 0
@@ -21,8 +24,11 @@ const addItem = () => {
 </script>
 
 <template>
+  ItemList
   <div>
-    <div>ItemList</div>
+    <div >
+      <h1>ItemList</h1>
+    </div>
     <ul>
       <li v-for="item in items" :key="item.name" :class="{ over500: item.price >= 500 }">
         <div>名前: {{ item.name }}</div>
@@ -39,7 +45,7 @@ const addItem = () => {
         価格
         <input v-model="newItemPrice" type="number" id="itemPrice" />
       </label>
-      <button @click="addItem">追加</button>
+      <v-btn :disabled="newItemName === ''" @click="addItem">追加</v-btn>
     </div>
   </div>
 </template>
